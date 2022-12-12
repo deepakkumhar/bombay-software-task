@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PYTHON Basecode</title>
+    <link rel="icon" type="image/x-icon" href="/static/sp.png">
+    <style>
+        .input-group input {
+            height: 37px
+        }
+    </style>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+</head>
+<span id="error_show"></span>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger text-center" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <b>PYTHON</b> BaseCode
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form method="POST" enctype="multipart/form-data" action=''>
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="categories_name">Name[English]</label>
+                            {{form.name_en}}
+                            <small>
+
+                                {{ form.name_en.errors }}
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="categories_name">Name[Spanish] </label>
+                            {{form.name_es}}
+                            <small>
+
+                                {{ form.name_es.errors }}
+                            </small>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="categories_image">Image</label>
+                            {{ formset.management_data }}
+                            {{form.image}}
+                            <small>
+
+                                {{ form.image.errors }}
+                            </small>
+
+
+                        </div>
+
+                        <!-- /.card-body -->
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-secondary">Submit</button>
+                        </div>
+                </form>
+                <br>
+                <a href="/account/reset/">I forgot my password</a>
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+
+    <!-- jQuery -->
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            document.getElementById('id_username').placeholder = "Email"
+            document.getElementById('id_username').setAttribute("onkeyup", "isValidEmailAddress()");
+            document.getElementById('id_username').setAttribute("class", "form-control");
+            document.getElementById('id_password').setAttribute("class", "form-control");
+            document.getElementById('id_password').placeholder = "Password"
+            document.getElementById('id_password').addEventListener('click', someFunc)
+            document.getElementById('id_username').addEventListener('click', validation)
+            document.getElementById('id_username').required = false;
+            document.getElementById('id_password').required = false;
+        });
+        function someFunc() {
+            validation();
+            isValidEmailAddress();
+        }
+
+        function validation() {
+            document.getElementById('error_id').innerHTML = ""
+
+        }
+
+        function isValidEmailAddress() {
+            var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+            emailAddress = document.getElementById('id_username').value
+            if (!emailAddress == "") {
+                if (!pattern.test(emailAddress)) {
+                    document.getElementById('username-error').innerHTML = "Email must be valid email address"
+                    document.getElementById("id_username").style.border = "1px solid red";
+
+                }
+                else {
+                    document.getElementById('username-error').innerHTML = ""
+                    document.getElementById("id_username").style.border = null
+                }
+            }
+            else {
+                document.getElementById('username-error').innerHTML = ""
+            }
+        }
+
+    </script>
+    <script>
+        function validateForm(e) { // avoid to execute the actual submit of the form.
+            e.preventDefault()
+            var count = 0;
+            username = document.getElementById('id_username').value
+            console.log(username)
+            password = document.getElementById('id_password').value
+            var pattern = /[a-zA-Z]+[(@!#\$%\^\&*\)\(+=._-]{1,}/;
+            if (username == '' && password == '') {
+                document.getElementById('username-error').innerHTML = 'Email cannot be blank.'
+                document.getElementById('password-error').innerHTML = 'Password cannot be blank'
+                document.getElementById("id_username").style.border = "1px solid red";
+                document.getElementById("id_password").style.border = "1px solid red";
+                return false;
+            } else if (username == '') {
+                document.getElementById('username-error').innerHTML = 'Email cannot be blank'
+                document.getElementById("id_username").style.border = "1px solid red";
+                document.getElementById('password-error').innerHTML = ''
+                document.getElementById("id_password").style.border = null;
+                return false;
+            } else if (password == '') {
+                document.getElementById('username-error').innerHTML = ''
+                document.getElementById("id_username").style.border = null;
+                document.getElementById('password-error').innerHTML = 'Password cannot be blank'
+                document.getElementById("id_password").style.border = "1px solid red";
+                if ((username.indexOf('@') == -1) || (username.indexOf('.') == -1) || (username.length < 4)) {
+                    console.log('hdfcjknsdfcndscndsk')
+                    document.getElementById("id_username").style.border = "1px solid red";
+                    document.getElementById('username-error').innerHTML = 'Email must be valid email address'
+                    return false;
+                }
+
+
+
+                return false;
+            }
+            else if ((username.indexOf('@') == -1) || (username.indexOf('.') == -1) || (username.length < 4)) {
+                document.getElementById("id_username").style.border = "1px solid red";
+                document.getElementById('username-error').innerHTML = 'Email must be valid email address'
+                document.getElementById('password-error').innerHTML = ''
+                document.getElementById("id_password").style.border = null;
+                return false;
+            }
+
+
+            else {
+                ajaxComplete();
+            }
+        }
+        function ajaxComplete() {
+            document.myform.submit();
+        }
+
+    </script>
+    <script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/dist/js/adminlte.min.js"></script>
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/static/dist/js/adminlte.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/static/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/static/plugins/jszip/jszip.min.js"></script>
+    <script src="/static/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/static/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/static/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/static/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/static/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="/static/plugins/jquery-ui/jquery-ui.min.js"></script>
+</body>
+
+</html>

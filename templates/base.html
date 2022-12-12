@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python-task</title>
+  <link rel="icon" type="image/x-icon" href="/static/bs.png">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+  <style>
+    body:not(.layout-fixed) .main-sidebar {
+      height: inherit;
+      min-height: 100%;
+      position: fixed;
+      top: 0;
+    }
+
+    ul.errorlist {
+      color: red;
+    }
+
+    .alert.alert-dismissible {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1212;
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img src="/static/bs.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link">
+        <img src="/static/bs.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Python Task</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="/static/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">{{user.first_name}} {{user.last_name}}</a>
+          </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+              <a href="{% url 'user' %}" class="nav-link">
+                <i class="fas fa-duotone fa-users"></i>
+                <p>
+                  User
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/profile-edit/" class="nav-link">
+                <i class="fas fa-edit"></i>
+                <p>
+                  Edit Profile
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'update_password_show' %}" class="nav-link">
+                <i class="fas fa-lock"></i>
+                <p>Update Password</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" onclick="logout(event)" class="nav-link">
+                <i class="fas fa-reply"></i>&nbsp;
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+
+
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    {% block header_content %}
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <!-- <li class="breadcrumb-item"><a href="#"></a></li> -->
+                <li class="breadcrumb-item active">Dashboard</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      {% endblock %}
+      <!-- /.content-header -->
+
+      {% block content %}
+      <!-- Main content -->
+      {% endblock %}
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="card">
+          <div class="card-body text-center modals">
+            <img src="/static/sp.png" class="img-fluid d-block mx-auto w-25 mb-1">
+            <i class="fas fa-quote-left fa-2x mb-3 text-danger"></i>
+            <h3>Welcome to Python BaseCode Admin panel</h3>
+            <p class="text-muted mt-3"><strong class="pr-2">NOTE:</strong>you are successfully loged in</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+      <div class="p-3">
+        <h5>Title</h5>
+        <p>Sidebar content</p>
+      </div>
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2022-2023 <a href="#">Python taslk</a>.</strong> All rights reserved.
+    </footer>
+  </div>
+  <!-- ./wrapper -->
+  {% block scriptblock %}
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="/static/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/dist/js/adminlte.min.js"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="/static/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="/static/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="/static/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="/static/plugins/jszip/jszip.min.js"></script>
+  <script src="/static/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="/static/plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="/static/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="/static/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="/static/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="/static/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      if (sessionStorage.getItem('#myModal') !== 'true') {
+        document.getElementById('show_login').removeAttribute('hidden')
+        sessionStorage.setItem('#myModal', 'true');
+      }
+    });
+
+    $('a').click(function () {
+      // if already any element in active status remove it
+      $('a').removeClass('active');
+      // add active status to this one only
+      $(this).addClass('active');
+
+    })
+    function logout(event) {
+      console.log("bhargav")
+      sessionStorage.setItem('#myModal', 'false')
+    }
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+    $(function () {
+      var url = window.location;
+      // for single sidebar menu
+      $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+      }).addClass('active');
+
+      // for sidebar menu and treeview
+      $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+      }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({ 'display': 'block' })
+        .addClass('menu-open').prev('a')
+        .addClass('active');
+    });
+    setTimeout(function () {
+      $('.alert').each(function () {
+        this.style.display = "none"
+        this.style.opacity = 0
+      })
+    }, 3000);
+  </script>
+  {% endblock %}
+</body>
+
+</html>

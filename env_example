@@ -1,0 +1,13 @@
+DB_NAME=xyz
+DB_USER=xyz
+DB_PASSWORD=xyz
+DB_HOST=xyz
+DB_PORT=xyz
+
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_USE_TLS=True
+EMAIL_PORT=xyz
+EMAIL_HOST_USER=xyz@gmail.com
+EMAIL_HOST_PASSWORD=xyz
+RECIPIENT_ADDRESS=RecipientEmailAddress
